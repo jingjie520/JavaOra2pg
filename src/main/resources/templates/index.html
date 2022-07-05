@@ -1,0 +1,54 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css"
+          integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+    <style>
+        textarea {
+            height: 45rem
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: center">Converts Oracle Stored Procedure To PostgreSQL</h1>
+
+
+<form class="pure-form" style="margin: 2rem" >
+    <div class="pure-g">
+        <div class="pure-u-11-24">
+            <fieldset class="pure-group">
+                <textarea class="pure-input-1 pure-input-rounded" placeholder="Oracle SP" id="oracle"></textarea>
+            </fieldset>
+        </div>
+        <div class="pure-u-1-12" style="text-align: center; margin-top: 24rem">
+            <button  type="button" class="pure-button pure-button-primary">Convert</button>
+        </div>
+        <div class="pure-u-11-24">
+            <fieldset class="pure-group">
+                <textarea class="pure-input-1 pure-input-rounded" placeholder="PG Sql" id="pg"></textarea>
+            </fieldset>
+        </div>
+    </div>
+
+</form>
+
+</body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("button").click(function () {
+            $.post("/",
+                {
+                    type: "oracle",
+                    sql: $("#oracle").val()
+                },
+                function (data, status) {
+                    console.log(status)
+                    $("#pg").val(data)
+                });
+
+        })
+    })
+</script>
+</html>
